@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Simple-tw</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        Simple-tw
                     </a>
                 </div>
 
@@ -48,7 +48,11 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    @if(Auth::user()->icon!='none.jpg')
+                                        <img src="/uploads/icons/{{Auth::user()->icon}}"/>
+                                    @else
+                                       {{Auth::user()->name}}
+                                    @endif
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -62,6 +66,9 @@
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
+                                    </li>
+                                    <li>
+                                        <a href="/user/icon">Adicione Foto de perfil</a>
                                     </li>
                                 </ul>
                             </li>
