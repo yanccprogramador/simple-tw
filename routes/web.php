@@ -14,6 +14,7 @@
 Route::get('/', 'HomeController@index');
 Route::get('/user/icon', 'UserController@viewUpload');
 Route::post('/user/icon', 'UserController@upload');
+Route::post('/tw/create', 'HomeController@add');
 
 Auth::routes();
 

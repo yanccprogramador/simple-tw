@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Tw;
 
 class HomeController extends Controller
 {
@@ -25,11 +26,18 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::check()){
-            return view('home');
+             $tws=Tw::getTwWithUser();
+            return view('home',['tweets'=>$tws,'saved'=>false]);
         }else{
             return redirect('login');
         }
 
+    }
+
+    public function add(Request $request)
+    {
+        Tw::create($request->except('_token'));
+        return redirect('home','302');
     }
 
 }

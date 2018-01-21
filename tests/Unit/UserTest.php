@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Tw;
 use Illuminate\Http\Request;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -55,6 +56,11 @@ class UserTest extends TestCase
         $response->assertViewIs('auth.icon');
 
 
+    }
+    public function testSaveTw(){
+        $user = factory(User::class)->create();
+        $response = $this->actingAs($user)->post('/tw/create/',['id_user'=>1,'text'=>'teste']);
+        $response->assertStatus(302);
     }
 
 }

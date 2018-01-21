@@ -21,28 +21,19 @@ services:
     volumes:
       - simple-tw-postgres-data:/var/lib/postgresql/data
     ports:
-      - "5433:5433"
+      - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD=yanc0302
-      - POSTGRES_DB=homestead
-      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=simple-tw
+      - POSTGRES_USER=simple-tw
   # PHP (with Caddy)
   app:
-    image: ambientum/php:7.2
+    image: ambientum/php:7.1-caddy
     container_name: simple-tw-app
     volumes:
       - .:/var/www/app
     ports:
       - "8080:8080"
     links:
-      - postgres
+      - postgres        
 
-  # Laravel Queues
-  queue:
-    image: ambientum/php:7.0
-    container_name: sandbox-queue
-    command: php artisan queue:listen
-    volumes:
-      - .:/var/www/app
-    links:
-      - postgres
